@@ -1,6 +1,7 @@
 package models;
 
-import repos.Personne;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,10 +19,15 @@ public class AppelOffre implements Serializable {
     private Date dateFin;
     private Date dateAttrib;
 
-    private Personne personne;
+    @ManyToOne
+    @JoinColumn(name = "personne_id")
+    @Autowired
+    private Morale gagnant;
 
     @Column(nullable = false, updatable = false)
     private String appelCode;
+
+
 
     public AppelOffre(){}
 
@@ -88,5 +94,13 @@ public class AppelOffre implements Serializable {
 
     public void setAppelCode(String appelCode) {
         this.appelCode = appelCode;
+    }
+
+    public Morale getGagnant() {
+        return gagnant;
+    }
+
+    public void setGagnant(Morale gagnant) {
+        this.gagnant = gagnant;
     }
 }

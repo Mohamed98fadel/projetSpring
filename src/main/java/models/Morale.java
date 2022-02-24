@@ -15,6 +15,8 @@ public class Morale implements Personne {
     private Long id;
     private String denomination;
     private String NumImmatricul;
+
+
     @ManyToOne
     @JoinColumn(name = "rep_legal_id")
     private Physique repLegal;
