@@ -1,0 +1,92 @@
+package models;
+
+import repos.Personne;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
+@Entity
+public class AppelOffre implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    private Long id;
+    private String objet;
+    private double montant;
+    private Date datePub;
+    private Date dateFin;
+    private Date dateAttrib;
+
+    private Personne personne;
+
+    @Column(nullable = false, updatable = false)
+    private String appelCode;
+
+    public AppelOffre(){}
+
+    public AppelOffre(String objet, double montant, Date datePub, Date dateFin, Date dateAttrib, String appelCode) {
+        this.objet = objet;
+        this.montant = montant;
+        this.datePub = datePub;
+        this.dateFin = dateFin;
+        this.dateAttrib = dateAttrib;
+        this.appelCode = appelCode;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getObjet() {
+        return objet;
+    }
+
+    public void setObjet(String objet) {
+        this.objet = objet;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
+    public Date getDatePub() {
+        return datePub;
+    }
+
+    public void setDatePub(Date datePub) {
+        this.datePub = datePub;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public Date getDateAttrib() {
+        return dateAttrib;
+    }
+
+    public void setDateAttrib(Date dateAttrib) {
+        this.dateAttrib = dateAttrib;
+    }
+
+    public String getAppelCode() {
+        return appelCode;
+    }
+
+    public void setAppelCode(String appelCode) {
+        this.appelCode = appelCode;
+    }
+}
