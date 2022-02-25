@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class AppelOffre implements Serializable {
+public class AppelOffre {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
@@ -20,7 +20,7 @@ public class AppelOffre implements Serializable {
     private Date dateAttrib;
 
     @ManyToOne
-    @JoinColumn(name = "personne_id")
+    @JoinColumn(name = "gagnant_id")
     @Autowired
     private Morale gagnant;
 

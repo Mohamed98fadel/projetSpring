@@ -3,11 +3,13 @@ package models;
 import repos.Personne;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
-public class Physique implements Personne {
+public class Physique {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +23,10 @@ public class Physique implements Personne {
 
     @Column(nullable = false, updatable = false)
     private String physiqueCode;
+
+    @OneToMany(mappedBy = "repLegal")
+    List<Morale> morals;
+
 
     public Physique() {
     }
@@ -89,4 +95,6 @@ public class Physique implements Personne {
     public void setPhysiqueCode(String physiqueCode) {
         this.physiqueCode = physiqueCode;
     }
+
+
 }

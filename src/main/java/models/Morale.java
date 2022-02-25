@@ -1,13 +1,12 @@
 package models;
 
-import repos.Personne;
-
 import javax.persistence.*;
-import java.util.Date;
+
+import java.util.List;
 
 
 @Entity
-public class Morale implements Personne {
+public class Morale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,13 +17,14 @@ public class Morale implements Personne {
 
 
     @ManyToOne
-    @JoinColumn(name = "rep_legal_id")
     private Physique repLegal;
 
 
     @Column(nullable = false, updatable = false)
     private String moraleCode;
 
+    @OneToMany(mappedBy = "entite")
+    List<Reference> references;
 
     public Morale() {
     }

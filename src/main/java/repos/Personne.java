@@ -1,4 +1,9 @@
 package repos;
 
-public interface Personne {
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface Personne<T> extends JpaRepository<T, Long> {
 }

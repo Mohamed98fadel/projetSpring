@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Reference implements Serializable {
+@Entity
+public class Reference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,7 +16,6 @@ public class Reference implements Serializable {
     private String objet;
 
     @ManyToOne
-    @Autowired
     private Morale entite;
 
     private Date Date;
