@@ -1,8 +1,7 @@
 package services;
 
 
-import exceptions.PhysiqueNotFoundException;
-import exceptions.ReferenceNotFoundException;
+import exceptions.ObjectNotFoundException;
 import models.Physique;
 import models.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import repos.Personne;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PhysiqueService {
@@ -25,9 +25,14 @@ public class PhysiqueService {
         return physiqueRepo.findAll();
     }
 
+    public Physique addPhysique(Physique physique) {
+        physique.setPhysiqueCode(UUID.randomUUID().toString());
+        return physiqueRepo.save(physique);
+    }
+
     public Physique findPhysiqueById(Long id) {
         return physiqueRepo.findPhysiqueById(id)
-                .orElseThrow(() -> new PhysiqueNotFoundException("Personne Physique by id  " + id + "was not found..."));
+                .orElseThrow(() -> new ObjectNotFoundException("Personne Physique by id  " + id + "was not found..."));
     }
 
     public Physique updatePhysique(Physique physique) {

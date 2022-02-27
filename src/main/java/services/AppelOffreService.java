@@ -1,7 +1,7 @@
 package services;
 
 
-import exceptions.AppelOffrerNotFoundException;
+import exceptions.ObjectNotFoundException;
 import models.AppelOffre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class AppelOffreService {
 
     public AppelOffre findAppelOffreById(Long id) {
         return appelOffreRepo.findAppelOffreById(id)
-                .orElseThrow(() -> new AppelOffrerNotFoundException("AppelOffre by id  " + id + "was not found..."));
+                .orElseThrow(() -> new ObjectNotFoundException("AppelOffre by id  " + id + "was not found..."));
     }
 
     public AppelOffre updateAppelOffre(AppelOffre appel) {

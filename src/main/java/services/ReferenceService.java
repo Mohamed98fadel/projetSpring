@@ -1,13 +1,10 @@
 package services;
 
 
-import exceptions.AppelOffrerNotFoundException;
-import exceptions.ReferenceNotFoundException;
-import models.AppelOffre;
+import exceptions.ObjectNotFoundException;
 import models.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repos.AppelOffreRepo;
 import repos.ReferenceRepo;
 
 import java.util.List;
@@ -35,7 +32,7 @@ public class ReferenceService {
 
     public Reference findReferenceById(Long id) {
         return referenceRepo.findReferenceById(id)
-                .orElseThrow(() -> new ReferenceNotFoundException("Reference by id  " + id + "was not found..."));
+                .orElseThrow(() -> new ObjectNotFoundException("Reference by id  " + id + "was not found..."));
     }
 
     public Reference updateReference(Reference ref) {

@@ -26,6 +26,11 @@ public class Morale {
     @OneToMany(mappedBy = "entite")
     List<Reference> references;
 
+    @OneToMany(mappedBy = "soumissionaire")
+    List<Soumission> soumissions;
+
+
+
     public Morale() {
     }
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class AppelOffre {
@@ -18,6 +19,7 @@ public class AppelOffre {
     private Date datePub;
     private Date dateFin;
     private Date dateAttrib;
+    private double delaiReatisat;
 
     @ManyToOne
     @JoinColumn(name = "gagnant_id")
@@ -27,7 +29,8 @@ public class AppelOffre {
     @Column(nullable = false, updatable = false)
     private String appelCode;
 
-
+    @OneToMany(mappedBy = "soumissionaire")
+    List<Soumission> soumissions;
 
     public AppelOffre(){}
 
@@ -86,6 +89,14 @@ public class AppelOffre {
 
     public void setDateAttrib(Date dateAttrib) {
         this.dateAttrib = dateAttrib;
+    }
+
+    public double getDelaiReatisat() {
+        return delaiReatisat;
+    }
+
+    public void setDelaiReatisat(double delaiReatisat) {
+        this.delaiReatisat = delaiReatisat;
     }
 
     public String getAppelCode() {
