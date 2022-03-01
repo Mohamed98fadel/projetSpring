@@ -1,26 +1,24 @@
-package services;
+package mr.vadel.projetspring.services;
 
 
 import exceptions.ObjectNotFoundException;
 
 
-import models.Soumission;
+import mr.vadel.projetspring.models.AppelOffre;
+import mr.vadel.projetspring.models.Soumission;
+import mr.vadel.projetspring.repos.SoumissionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import repos.SoumissionRepo;
+
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class SoumissionService {
-    private final SoumissionRepo soumissionRepo;
-
     @Autowired
-    public SoumissionService(SoumissionRepo soumissionRepo) {
-        this.soumissionRepo = soumissionRepo;
-    }
+    private SoumissionRepo soumissionRepo;
 
 
     public Soumission addSoumission(Soumission soumission) {
@@ -33,15 +31,15 @@ public class SoumissionService {
     }
 
     public Soumission findSoumissionById(Long id) {
-        return soumissionRepo.findSoumissionById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Soumission by id  " + id + "was not found..."));
-    }
-
-    public Soumission updateSoumission(Soumission sms) {
-        return soumissionRepo.save(sms);
+        return soumissionRepo.findById(id).get();
     }
 
     public void deleteSoumission(Long id) {
-        soumissionRepo.deleteSoumissionById(id);
+        soumissionRepo.deleteById(id);
+    }
+
+
+    public List<Soumission> findByAppel(AppelOffre appel) {
+        return soumissionRepo.findByAppel(appel);
     }
 }

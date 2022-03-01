@@ -1,23 +1,21 @@
-package services;
+package mr.vadel.projetspring.services;
 
 
 import exceptions.ObjectNotFoundException;
-import models.Reference;
+import mr.vadel.projetspring.models.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repos.ReferenceRepo;
+import mr.vadel.projetspring.repos.ReferenceRepo;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class ReferenceService {
-    private final ReferenceRepo referenceRepo;
-
     @Autowired
-    public ReferenceService(ReferenceRepo referenceRepo) {
-        this.referenceRepo = referenceRepo;
-    }
+    private  ReferenceRepo referenceRepo;
+
+
 
 
 
@@ -31,15 +29,12 @@ public class ReferenceService {
     }
 
     public Reference findReferenceById(Long id) {
-        return referenceRepo.findReferenceById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Reference by id  " + id + "was not found..."));
+        return referenceRepo.findById(id).get();
     }
 
-    public Reference updateReference(Reference ref) {
-        return referenceRepo.save(ref);
-    }
+
 
     public void deleteReference(Long id) {
-        referenceRepo.deleteReferenceById(id);
+        referenceRepo.deleteById(id);
     }
 }

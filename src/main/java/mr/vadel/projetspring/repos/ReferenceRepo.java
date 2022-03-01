@@ -1,12 +1,13 @@
-package repos;
+package mr.vadel.projetspring.repos;
 
-import models.Reference;
+import mr.vadel.projetspring.models.Reference;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface ReferenceRepo extends JpaRepository<Reference, Long> {
-    Optional<Reference> findReferenceById(Long id);
 
-    void deleteReferenceById(Long id);
+@Repository
+public interface ReferenceRepo extends JpaRepository<Reference, Long> {
+
 }

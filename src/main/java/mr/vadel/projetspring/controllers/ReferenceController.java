@@ -1,26 +1,23 @@
-package controllers;
+package mr.vadel.projetspring.controllers;
 
 
-import models.AppelOffre;
-import models.Reference;
+import mr.vadel.projetspring.models.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.AppelOffreService;
-import services.ReferenceService;
+import mr.vadel.projetspring.services.ReferenceService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/reference")
 public class ReferenceController {
-    private final ReferenceService referenceService;
-
     @Autowired
-    public ReferenceController(ReferenceService referenceService) {
-        this.referenceService = referenceService;
-    }
+    private ReferenceService referenceService;
+
+
+
 
 
     @GetMapping("/all")
@@ -42,11 +39,6 @@ public class ReferenceController {
     }
 
 
-    @PutMapping("/update")
-    public ResponseEntity<Reference> updateReference(@RequestBody Reference ref) {
-        Reference updRef = referenceService.updateReference(ref);
-        return new ResponseEntity<>(updRef, HttpStatus.OK);
-    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteReference(@PathVariable("id") Long id) {

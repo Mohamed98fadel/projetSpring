@@ -1,25 +1,24 @@
-package controllers;
+package mr.vadel.projetspring.controllers;
 
 
-import models.AppelOffre;
+import exceptions.ObjectNotFoundException;
+import mr.vadel.projetspring.models.AppelOffre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import repos.AppelOffreRepo;
-import services.AppelOffreService;
+import mr.vadel.projetspring.services.AppelOffreService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/appel")
 public class AppelOffreController {
-    private final AppelOffreService appelOffreService;
 
     @Autowired
-    public AppelOffreController(AppelOffreService appelOffreService) {
-        this.appelOffreService = appelOffreService;
-    }
+    private  AppelOffreService appelOffreService;
+
+
 
 
     @GetMapping("/all")
@@ -27,6 +26,12 @@ public class AppelOffreController {
         List<AppelOffre> appels = appelOffreService.findAllAppelOffres();
         return new ResponseEntity<>(appels, HttpStatus.OK);
     }
+
+//    @GetMapping("/encours")
+//    public ResponseEntity<List<AppelOffre>> getEnCours() {
+//        List<AppelOffre> appels = appelOffreService.AppelEnCours();
+//        return new ResponseEntity<>(appels, HttpStatus.OK);
+//    }
 
     @GetMapping("/find/{id}")
     public ResponseEntity<AppelOffre> getAppelOffreById(@PathVariable("id") Long id) {
@@ -41,11 +46,6 @@ public class AppelOffreController {
     }
 
 
-    @PutMapping("/update")
-    public ResponseEntity<AppelOffre> updateAppelOffre(@RequestBody AppelOffre appel) {
-        AppelOffre updApp = appelOffreService.updateAppelOffre(appel);
-        return new ResponseEntity<>(updApp, HttpStatus.OK);
-    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAppelOffre(@PathVariable("id") Long id) {

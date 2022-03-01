@@ -1,15 +1,18 @@
-package models;
+package mr.vadel.projetspring.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 @Entity
-public class Soumission {
+public class Soumission implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
+    private LocalDateTime Date;
 
    @ManyToOne
    private Morale soumissionaire;
@@ -29,7 +32,8 @@ public class Soumission {
     public Soumission() {
     }
 
-    public Soumission(Morale soumissionaire, AppelOffre appel, String dossierCandidature, String typeDoc, byte[] data, String smsCode) {
+    public Soumission(LocalDateTime date, Morale soumissionaire, AppelOffre appel, String dossierCandidature, String typeDoc, byte[] data, String smsCode) {
+        Date = date;
         this.soumissionaire = soumissionaire;
         this.appel = appel;
         this.dossierCandidature = dossierCandidature;
@@ -44,6 +48,14 @@ public class Soumission {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getDate() {
+        return Date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        Date = date;
     }
 
     public Morale getSoumissionaire() {

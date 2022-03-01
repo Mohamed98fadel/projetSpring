@@ -1,26 +1,23 @@
-package controllers;
+package mr.vadel.projetspring.controllers;
 
 
-import models.Physique;
-import models.Reference;
+import mr.vadel.projetspring.models.Physique;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.PhysiqueService;
-import services.ReferenceService;
+import mr.vadel.projetspring.services.PhysiqueService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/physique")
 public class PhysiqueController {
-    private final PhysiqueService physiqueService;
-
     @Autowired
-    public PhysiqueController(PhysiqueService physiqueService) {
-        this.physiqueService = physiqueService;
-    }
+    private  PhysiqueService physiqueService;
+
+
+
 
 
 
@@ -43,11 +40,7 @@ public class PhysiqueController {
     }
 
 
-    @PutMapping("/update")
-    public ResponseEntity<Physique> updatePhysique(@RequestBody Physique phy) {
-        Physique updPhy = physiqueService.updatePhysique(phy);
-        return new ResponseEntity<>(updPhy, HttpStatus.OK);
-    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePhysique(@PathVariable("id") Long id) {
@@ -55,3 +48,4 @@ public class PhysiqueController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
+

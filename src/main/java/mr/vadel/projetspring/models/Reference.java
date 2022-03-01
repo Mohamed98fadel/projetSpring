@@ -1,13 +1,11 @@
-package models;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package mr.vadel.projetspring.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
-public class Reference {
+public class Reference implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +16,7 @@ public class Reference {
     @ManyToOne
     private Morale entite;
 
-    private Date Date;
+    private LocalDateTime Date;
 
     private double montant;
 
@@ -29,7 +27,7 @@ public class Reference {
     public Reference() {
     }
 
-    public Reference(String objet, Morale entite, java.util.Date date, double montant, String refCode) {
+    public Reference(String objet, Morale entite, LocalDateTime date, double montant, String refCode) {
         this.objet = objet;
         this.entite = entite;
         Date = date;
@@ -53,11 +51,11 @@ public class Reference {
         this.objet = objet;
     }
 
-    public java.util.Date getDate() {
+    public LocalDateTime getDate() {
         return Date;
     }
 
-    public void setDate(java.util.Date date) {
+    public void setDate(LocalDateTime date) {
         Date = date;
     }
 

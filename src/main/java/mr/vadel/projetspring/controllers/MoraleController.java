@@ -1,11 +1,11 @@
-package controllers;
+package mr.vadel.projetspring.controllers;
 
-import models.Morale;
+import mr.vadel.projetspring.models.Morale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.MoraleService;
+import mr.vadel.projetspring.services.MoraleService;
 
 
 import java.util.List;
@@ -13,12 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/morale")
 public class MoraleController {
-    private final MoraleService moraleService;
+
 
     @Autowired
-    public MoraleController(MoraleService moraleService) {
-        this.moraleService = moraleService;
-    }
+    private MoraleService moraleService;
+
+
+
+
 
     @GetMapping("/all")
     public ResponseEntity<List<Morale>> getAllMorales() {
@@ -39,11 +41,7 @@ public class MoraleController {
     }
 
 
-    @PutMapping("/update")
-    public ResponseEntity<Morale> updateMorale(@RequestBody Morale moral) {
-        Morale updMor = moraleService.updateMorale(moral);
-        return new ResponseEntity<>(updMor, HttpStatus.OK);
-    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteMorale(@PathVariable("id") Long id) {

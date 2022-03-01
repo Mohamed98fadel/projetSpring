@@ -1,12 +1,13 @@
-package models;
+package mr.vadel.projetspring.models;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
-public class Morale {
+public class Morale extends Personne {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

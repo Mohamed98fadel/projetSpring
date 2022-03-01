@@ -1,15 +1,12 @@
-package models;
-
-import repos.Personne;
+package mr.vadel.projetspring.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 
 @Entity
-public class Physique {
+public class Physique extends Personne {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

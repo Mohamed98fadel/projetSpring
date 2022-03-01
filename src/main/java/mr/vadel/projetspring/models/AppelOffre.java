@@ -1,24 +1,24 @@
-package models;
+package mr.vadel.projetspring.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class AppelOffre {
+public class AppelOffre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
     private String objet;
     private double montant;
-    private Date datePub;
-    private Date dateFin;
-    private Date dateAttrib;
+    private LocalDateTime datePub;
+    private LocalDateTime dateFin;
+    private LocalDateTime dateAttrib;
     private double delaiReatisat;
 
     @ManyToOne
@@ -34,12 +34,14 @@ public class AppelOffre {
 
     public AppelOffre(){}
 
-    public AppelOffre(String objet, double montant, Date datePub, Date dateFin, Date dateAttrib, String appelCode) {
+    public AppelOffre(String objet, double montant, LocalDateTime datePub, LocalDateTime dateFin, LocalDateTime dateAttrib, double delaiReatisat, Morale gagnant, String appelCode) {
         this.objet = objet;
         this.montant = montant;
         this.datePub = datePub;
         this.dateFin = dateFin;
         this.dateAttrib = dateAttrib;
+        this.delaiReatisat = delaiReatisat;
+        this.gagnant = gagnant;
         this.appelCode = appelCode;
     }
 
@@ -67,27 +69,27 @@ public class AppelOffre {
         this.montant = montant;
     }
 
-    public Date getDatePub() {
+    public LocalDateTime getDatePub() {
         return datePub;
     }
 
-    public void setDatePub(Date datePub) {
+    public void setDatePub(LocalDateTime datePub) {
         this.datePub = datePub;
     }
 
-    public Date getDateFin() {
+    public LocalDateTime getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
     }
 
-    public Date getDateAttrib() {
+    public LocalDateTime getDateAttrib() {
         return dateAttrib;
     }
 
-    public void setDateAttrib(Date dateAttrib) {
+    public void setDateAttrib(LocalDateTime dateAttrib) {
         this.dateAttrib = dateAttrib;
     }
 
