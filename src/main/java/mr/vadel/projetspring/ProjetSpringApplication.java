@@ -16,7 +16,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 
-
 @SpringBootApplication
 public class ProjetSpringApplication {
 
