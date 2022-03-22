@@ -19,7 +19,7 @@
         <ul class="nav navbar-nav">
             <li class="active"><a th:href="@{/}">Home</a></li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/}">Appels
+                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/}">Personnes Physiques
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a th:href="@{/}">Appels</a></li>
@@ -35,30 +35,30 @@
 </nav>
 <br><br>
 <div class="container">
-    <h2>Appels</h2>
+    <h2>Physiques</h2>
     <table class="table">
         <thead>
         <tr>
-            <th>Objet</th>
-            <th>Date de Pub</th>
-            <th>Date de Fin</th>
-            <th>Montant</th>
-            <th>Délai de réalisation(Jours)</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Adresse</th>
+            <th>Mail</th>
+            <th>Téléphone</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="Ao : ${appels}">
-            <td th:utext="${Ao.getObjet()}">..</td>
-            <td th:utext="${Ao.getDatePub()}">..</td>
-            <td th:utext="${Ao.getDateFin()}">..</td>
-            <td th:utext="${Ao.getMontant()}">..</td>
-            <td th:utext="${Ao.getDelaiReatisat()}">..</td>
-            <td><a  th:href="@{'/soumet/'+${Ao.getId()}}">Soumettre</a></td>
+        <tr th:each="Ph : ${physiques}">
+            <td th:utext="${Ph.getNom()}">..</td>
+            <td th:utext="${Ph.getPrenom()}">..</td>
+            <td th:utext="${Ph.getAdresse()} ">..</td>
+            <td th:utext="${Ph.getMail()} ">..</td>
+            <td th:utext="${Ph.getTel()} ">..</td>
         </tr>
         </tbody>
     </table>
 </div>
+
 
 </body>
 </html>

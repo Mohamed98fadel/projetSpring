@@ -23,7 +23,8 @@ public class Soumission implements Serializable {
 
     private String dossierCandidature;
     private String typeDoc;
-    @Lob
+
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] data;
 
     @Column(nullable = false, updatable = false)
@@ -36,8 +37,8 @@ public class Soumission implements Serializable {
         Date = date;
         this.soumissionaire = soumissionaire;
         this.appel = appel;
-        this.dossierCandidature = dossierCandidature;
         this.typeDoc = typeDoc;
+        this.dossierCandidature = dossierCandidature;
         this.data = data;
         SmsCode = smsCode;
     }

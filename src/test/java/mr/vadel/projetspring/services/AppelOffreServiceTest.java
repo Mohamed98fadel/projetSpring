@@ -21,6 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class AppelOffreServiceTest {
+
+    @Autowired
+    private  AppelOffreService appelOffreService;
+
+
+
+
     protected MockMvc mvc;
 
     @Autowired
@@ -53,9 +60,8 @@ class AppelOffreServiceTest {
 
     @Test
     void appelEnCours() {
+        appelOffreService.AppelEnCours();
 
-
-       // List<AppelOffre> appels = as.AppelEnCours();
     }
 
     @Test

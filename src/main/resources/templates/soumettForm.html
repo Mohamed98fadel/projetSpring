@@ -35,30 +35,33 @@
 </nav>
 <br><br>
 <div class="container">
-    <h2>Appels</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Objet</th>
-            <th>Date de Pub</th>
-            <th>Date de Fin</th>
-            <th>Montant</th>
-            <th>Délai de réalisation(Jours)</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="Ao : ${appels}">
-            <td th:utext="${Ao.getObjet()}">..</td>
-            <td th:utext="${Ao.getDatePub()}">..</td>
-            <td th:utext="${Ao.getDateFin()}">..</td>
-            <td th:utext="${Ao.getMontant()}">..</td>
-            <td th:utext="${Ao.getDelaiReatisat()}">..</td>
-            <td><a  th:href="@{'/soumet/'+${Ao.getId()}}">Soumettre</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <h2>Soumettre</h2>
+    <form  enctype="multipart/form-data" th:action="@{'/soumet/'+${appel}}" th:object="${soumettForm}" method="POST">
+        <table>
+            <tr>
+                <td>L'Appel</td>
+               <td><input   th:type="number" th:field="*{appelId}"  th:disabled="true" th:value="${appel}" name="appel"    th:placeholder="${objet}" /></td>
+            </tr>
+            <tr>
+                <td>Soumissionaire</td>
+                <td><select th:field="*{soumissionaire}" >
+                    <option th:type="number" th:each="sm : ${morales}" th:value="${sm.getId()}" th:text="${sm.getDenomination()}">
+                    </option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>DossierCandidature</td>
+                <td><input  type="file"  th:field="*{file}" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Soumettre au Appel"/></td>
+            </tr>
+        </table>
+    </form>
 </div>
+
 
 </body>
 </html>

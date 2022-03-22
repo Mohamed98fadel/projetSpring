@@ -13,5 +13,5 @@ import java.util.Optional;
 @Repository
 public interface SoumissionRepo extends JpaRepository<Soumission, Long> {
 
-    List<Soumission> findByAppel(AppelOffre appel);
+  List<Soumission> findByAppel(AppelOffre appel);
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import mr.vadel.projetspring.repos.AppelOffreRepo;
 
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,8 +23,6 @@ public class AppelOffreService {
     private AppelOffreRepo appelOffreRepo;
 
 
-
-
     public AppelOffre addAppelOffre(AppelOffre appelOffre) {
         appelOffre.setAppelCode(UUID.randomUUID().toString());
         return appelOffreRepo.save(appelOffre);
@@ -33,8 +33,6 @@ public class AppelOffreService {
     }
 
 
-
-
     public void deleteAppelOffre(Long id) {
         appelOffreRepo.deleteById(id);
     }
@@ -43,32 +41,29 @@ public class AppelOffreService {
         return appelOffreRepo.findById(id).get();
     }
 
-    public AppelOffre attribuerUnAppel(Morale gagnant,AppelOffre appel){
-         AppelOffre ap = findAppelOffreById(appel.getId());
-         ap.setGagnant(gagnant);
-         return  appelOffreRepo.save(ap);
+    public AppelOffre attribuerUnAppel(Morale gagnant, AppelOffre appel) {
+        AppelOffre ap = findAppelOffreById(appel.getId());
+        ap.setGagnant(gagnant);
+        return appelOffreRepo.save(ap);
 
     }
 
 
+    public List<AppelOffre> AppelEnCours() {
+        List<AppelOffre> All = findAllAppelOffres();
+        List<AppelOffre> list = new ArrayList<>();
+
+        LocalDateTime now = LocalDateTime.now();
+
+            for(AppelOffre Ao: All){
+               if(Ao.getDateFin().isAfter(now)){
+                   list.add(Ao);
+               }
+            }
+
+           return list;
+    }
 
 }
 
 
-
-
-
-
-//    public List<AppelOffre> AppelEnCours(){
-//        List<AppelOffre> All = findAllAppelOffres();
-//        System.out.println(All.get(0).getObjet());
-//        List<AppelOffre> enCours = null;
-//
-//        for(int i=0;i<All.size();i++){
-//              if(All.get(i).getDateFin().isAfter(LocalDateTime.now())){
-//                enCours.add(All.get(i));
-//                System.out.println(All.get(i).getObjet());
-//              }
-//        }
-//        return enCours;
-//    }
