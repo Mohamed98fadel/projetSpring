@@ -125,8 +125,8 @@ public class MainController {
     public String showSoumissions(Model model) {
         SoumisForm form = new SoumisForm();
         model.addAttribute("soumisForm", form);
-        List<AppelOffre> list = appelOffreService.findAllAppelOffres();
 
+        List<AppelOffre> list = appelOffreService.findAllAppelOffres();
         model.addAttribute("appels", list);
 
         return "SoumisForm";
