@@ -52,6 +52,7 @@
             <th>Objet d'Offre</th>
             <th>DossierCandidature</th>
             <th>Fichiers</th>
+            <th>Référence</th>
         </tr>
         </thead>
         <tbody>
@@ -61,11 +62,33 @@
             <td th:utext="${sm.getAppel().getObjet()}">..</td>
             <td th:utext="${sm.getDossierCandidature()}">..</td>
             <td><a type="submit" th:href="@{'/soumission/tel/'+${sm.getId()}}" >Télécharger</a></td>
+            <td><a  th:href="@{'/soumission/ref/'+${sm.getSoumissionaire().getId()}}">Afficher</a></td>
         </tr>
         </tbody>
     </table>
 </div>
+<br><br>
+<div class="container">
+    <h2>Attribuez un Appel</h2>
 
+    <form enctype="multipart/form-data" th:action="@{'/attrib/'+${appelId}}" th:object="${attribForm}" method="POST">
+
+        <br>
+        <div class="form-group">
+            <label><h5>Soumissionaire</h5></label>
+            <select class="form-control" th:field="*{soumId}" >
+                <option class="form-control" th:type="number" th:each="sm : ${soums}" th:value="${sm.getSoumissionaire().getId()}" th:text="${sm.getSoumissionaire().getDenomination()}">
+                </option>
+            </select>
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Attribuer</button>
+        </div>
+
+    </form>
+</div>
 
 </body>
 

@@ -1,16 +1,11 @@
 package mr.vadel.projetspring.controllers;
 
 
+import mr.vadel.projetspring.forms.AttribForm;
 import mr.vadel.projetspring.forms.SoumettForm;
 import mr.vadel.projetspring.forms.SoumisForm;
-import mr.vadel.projetspring.models.AppelOffre;
-import mr.vadel.projetspring.models.Morale;
-import mr.vadel.projetspring.models.Physique;
-import mr.vadel.projetspring.models.Soumission;
-import mr.vadel.projetspring.services.AppelOffreService;
-import mr.vadel.projetspring.services.MoraleService;
-import mr.vadel.projetspring.services.PhysiqueService;
-import mr.vadel.projetspring.services.SoumissionService;
+import mr.vadel.projetspring.models.*;
+import mr.vadel.projetspring.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,14 +44,15 @@ public class MainController {
     @Autowired
     private SoumissionService soumissionService;
 
-    private Soumission soumission;
+    @Autowired
+    private ReferenceService referenceService;
+
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showAppelOffres(Model model) {
        List<AppelOffre> list = appelOffreService.AppelEnCours();
-
         model.addAttribute("appels", list);
-
         return "appelsEnCours";
     }
 
@@ -64,18 +60,14 @@ public class MainController {
     @RequestMapping(value = "/mrles", method = RequestMethod.GET)
     public String showPersoMorales(Model model) {
         List<Morale> list = moraleService.findAllMorales();
-
         model.addAttribute("morales", list);
-
         return "persoMorales";
     }
 
     @RequestMapping(value = "/phques", method = RequestMethod.GET)
     public String showPersoPhysiques(Model model) {
         List<Physique> list = physiqueService.findAllPhysiques();
-
         model.addAttribute("physiques", list);
-
         return "persoPhysiques";
     }
 
@@ -84,11 +76,7 @@ public class MainController {
 
         List<Morale> list = moraleService.findAllMorales();
         model.addAttribute("morales", list);
-
         AppelOffre appel = appelOffreService.findAppelOffreById(id);
-
-
-
         model.addAttribute("appel", appel.getId());
         model.addAttribute("objet", appel.getObjet());
 
@@ -101,10 +89,8 @@ public class MainController {
     @RequestMapping(value = "/soumet/{idAp}", method = RequestMethod.POST)
     public String processCreateSoumission(Model model, SoumettForm soumettForm,@PathVariable("idAp") Long idAp) throws IOException {
 
-
         AppelOffre appel = appelOffreService.findAppelOffreById(idAp);
         Morale soumissionaire = moraleService.findMoraleById(soumettForm.getSoumissionaire());
-
         String uuid = UUID.randomUUID().toString();
         LocalDateTime date = LocalDateTime.now();
 
@@ -125,7 +111,6 @@ public class MainController {
     public String showSoumissions(Model model) {
         SoumisForm form = new SoumisForm();
         model.addAttribute("soumisForm", form);
-
         List<AppelOffre> list = appelOffreService.findAllAppelOffres();
         model.addAttribute("appels", list);
 
@@ -133,10 +118,12 @@ public class MainController {
     }
 
 
+
     @RequestMapping(value = "/soums", method = RequestMethod.POST)
     public String getSoumissions(Model model,SoumisForm form) {
 
         AppelOffre appel = appelOffreService.findAppelOffreById(form.getAppelId());
+        model.addAttribute("appelId", appel.getId());
         List<Soumission> sms = soumissionService.findAllSoumissions();
         List<Soumission> list = new ArrayList<>();
 
@@ -148,16 +135,37 @@ public class MainController {
         }
 
         model.addAttribute("soums", list);
+        AttribForm attrbform = new AttribForm();
+        model.addAttribute("attribForm", attrbform);
+
 
         return "soumissions";
     }
 
 
+    @RequestMapping(value = "/attrib/{id}", method = RequestMethod.POST)
+    public String AttribOffre(Model model,AttribForm form, @PathVariable("id") Long id) {
+
+        AppelOffre appel = appelOffreService.findAppelOffreById(id);
+        Morale gagnant = moraleService.findMoraleById(form.getSoumId());
+        appel.setGagnant(gagnant);
+
+        //creation de la reference
+        Reference ref = new Reference();
+
+        ref.setDate(LocalDateTime.now());
+        ref.setEntite(gagnant);
+        ref.setObjet(appel.getObjet());
+        ref.setMontant(appel.getMontant());
+
+        referenceService.addReference(ref);
+
+        return "appelsEnCours";
+    }
+
 
     @RequestMapping(value = "/soumission/tel/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource> downloadFile(Model model, @PathVariable("id") Long id) {
-
-
 
         Soumission sm = soumissionService.findSoumissionById(id);
         System.out.println(sm.getDossierCandidature());
@@ -168,4 +176,27 @@ public class MainController {
                 .body(new ByteArrayResource(sm.getData()));
     }
 
+
+
+    @RequestMapping(value = "/soumission/ref/{id}", method = RequestMethod.GET)
+    public String AffichierReferences(Model model,@PathVariable("id") Long id) {
+
+        List<Reference> all = referenceService.findAllReferences();
+        Morale soum = moraleService.findMoraleById(id);
+
+        List<Reference> refs = new ArrayList<>();
+
+        for(Reference ref: all){
+            if(ref.getEntite().equals(soum)){
+                refs.add(ref);
+            }
+        }
+
+        model.addAttribute("refs", refs);
+
+        return "RefParSoum";
+    }
+
 }
+
+

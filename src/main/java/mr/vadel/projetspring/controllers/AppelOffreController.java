@@ -27,11 +27,6 @@ public class AppelOffreController {
         return new ResponseEntity<>(appels, HttpStatus.OK);
     }
 
-//    @GetMapping("/encours")
-//    public ResponseEntity<List<AppelOffre>> getEnCours() {
-//        List<AppelOffre> appels = appelOffreService.AppelEnCours();
-//        return new ResponseEntity<>(appels, HttpStatus.OK);
-//    }
 
     @GetMapping("/find/{id}")
     public ResponseEntity<AppelOffre> getAppelOffreById(@PathVariable("id") Long id) {
