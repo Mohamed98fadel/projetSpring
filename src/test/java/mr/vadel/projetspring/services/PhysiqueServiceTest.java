@@ -66,7 +66,13 @@ class PhysiqueServiceTest {
     }
 
     @Test
-    void findPhysiqueById() {
+    void findPhysiqueById() throws Exception {
+        String uri = "/physique/find/3";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
     }
 
     @Test

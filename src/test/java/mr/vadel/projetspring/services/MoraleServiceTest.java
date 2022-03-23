@@ -47,7 +47,13 @@ class MoraleServiceTest {
     }
 
     @Test
-    void findMoraleById() {
+    void findMoraleById() throws Exception {
+        String uri = "/morale/find/4";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
     }
 
     @Test

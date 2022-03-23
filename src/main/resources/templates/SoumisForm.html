@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Physiques</title>
+    <title>Soumissions</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -43,30 +43,29 @@
 </nav>
 <br><br>
 <div class="container">
-    <h2>Morales</h2>
-    <table class="table table-striped table-dark">
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Adresse</th>
-            <th>Mail</th>
-            <th>Téléphone</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="Ph : ${physiques}">
-            <td th:utext="${Ph.getNom()}">..</td>
-            <td th:utext="${Ph.getPrenom()}">..</td>
-            <td th:utext="${Ph.getAdresse()} ">..</td>
-            <td th:utext="${Ph.getMail()} ">..</td>
-            <td th:utext="${Ph.getTel()} ">..</td>
-        </tr>
-        </tbody>
-    </table>
+    <h2>Sélectionnez au Appel</h2>
+
+    <form enctype="multipart/form-data" th:action="@{/soums}" th:object="${soumisForm}" method="POST">
+
+        <br>
+        <div class="form-group">
+            <label><h5>Soumissionaire</h5></label>
+            <select class="form-control" th:field="*{appelId}" >
+                <option class="form-control" th:type="number" th:each="ap : ${appels}" th:value="${ap.getId()}" th:text="${ap.getObjet()}">
+                </option>
+            </select>
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </div>
+
+    </form>
 </div>
 
 
 </body>
 </html>
+
+

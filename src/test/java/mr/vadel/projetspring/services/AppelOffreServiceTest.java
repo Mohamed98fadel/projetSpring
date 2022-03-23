@@ -65,7 +65,14 @@ class AppelOffreServiceTest {
     }
 
     @Test
-    void findAppelOffreById() {
+    void findAppelOffreById() throws Exception {
+
+        String uri = "/appel/find/7";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
     }
 
     @Test

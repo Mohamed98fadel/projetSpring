@@ -47,7 +47,13 @@ class ReferenceServiceTest {
     }
 
     @Test
-    void findReferenceById() {
+    void findReferenceById() throws Exception {
+        String uri = "/reference/find/12";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
     }
 
     @Test
