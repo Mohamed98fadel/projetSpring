@@ -1,5 +1,9 @@
 package mr.vadel.projetspring.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import mr.vadel.projetspring.models.AppelOffre;
+import mr.vadel.projetspring.models.Morale;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +15,22 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 class MoraleServiceTest {
     protected MockMvc mvc;
+
+
+    ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
+    }
 
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -33,6 +48,17 @@ class MoraleServiceTest {
     private MoraleService moraleService;
 
     @Test
+    void deleteMorale() throws Exception {
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/morale/delete/30")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
+
+    @Test
     void findAllMorales() throws Exception {
         String uri = "/morale/all";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -43,7 +69,23 @@ class MoraleServiceTest {
     }
 
     @Test
-    void addMorale() {
+    void addMorale() throws Exception {
+
+        Morale testMorale = new Morale();
+        testMorale.setDenomination("TestAjoutMorale");
+        testMorale.setNumImmatricul("AU00004");
+        testMorale.setRepLegal(null);
+
+        ObjectMapper mapper = objectMapper();
+        //Converting the Object to JSONString
+        String jsonString = mapper.writeValueAsString(testMorale);
+
+
+        String uri = "/morale/add";
+
+        mvc.perform(post(uri).contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -56,7 +98,5 @@ class MoraleServiceTest {
         assertEquals(200, status);
     }
 
-    @Test
-    void deleteMorale() {
-    }
+
 }

@@ -1,5 +1,9 @@
 package mr.vadel.projetspring.services;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import mr.vadel.projetspring.models.Reference;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +15,21 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 class ReferenceServiceTest {
     protected MockMvc mvc;
+
+    ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
+    }
 
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -33,7 +47,37 @@ class ReferenceServiceTest {
     private ReferenceService referenceService;
 
     @Test
-    void addReference() {
+    void deleteReference() throws Exception {
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/reference/delete/32")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
+
+    @Test
+    void addReference() throws Exception {
+                Reference testRef = new Reference();
+                testRef.setDate(LocalDateTime.now());
+                testRef.setMontant(35000.0);
+                testRef.setObjet("TestObjet");
+                testRef.setEntite(null);
+
+
+
+
+        ObjectMapper mapper = objectMapper();
+        //Converting the Object to JSONString
+        String jsonString = mapper.writeValueAsString(testRef);
+
+
+        String uri = "/reference/add";
+
+        mvc.perform(post(uri).contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -56,7 +100,5 @@ class ReferenceServiceTest {
         assertEquals(200, status);
     }
 
-    @Test
-    void deleteReference() {
-    }
+
 }

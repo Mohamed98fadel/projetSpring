@@ -11,12 +11,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SoumissionServiceTest {
     protected MockMvc mvc;
+
 
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -34,7 +34,12 @@ class SoumissionServiceTest {
     private SoumissionService soumissionService;
 
     @Test
+    void deleteSoumission() throws Exception {
+    }
+
+    @Test
     void addSoumission() throws Exception {
+
     }
 
     @Test
@@ -57,9 +62,7 @@ class SoumissionServiceTest {
         assertEquals(200, status);
     }
 
-    @Test
-    void deleteSoumission() {
-    }
+
 
     @Test
     void findByAppel() {
