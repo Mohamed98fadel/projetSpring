@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Physiques</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  />
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">GestionAppelsOffres</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Appels</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/mrles}">Morales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/phques}">Physiques</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/soums}">Soumissions</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<br><br>
+<div class="container">
+    <h2>Physiques</h2>
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Adresse</th>
+            <th>Mail</th>
+            <th>Téléphone</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Ph : ${physiques}">
+            <td th:utext="${Ph.getNom()}">..</td>
+            <td th:utext="${Ph.getPrenom()}">..</td>
+            <td th:utext="${Ph.getAdresse()} ">..</td>
+            <td th:utext="${Ph.getMail()} ">..</td>
+            <td th:utext="${Ph.getTel()} ">..</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

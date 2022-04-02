@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Soumettre</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"  />
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">GestionAppelsOffres</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Appels</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/mrles}">Morales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/phques}">Physiques</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/soums}">Soumissions</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<br><br>
+<div class="container">
+    <h2>Soumettre au Appel</h2>
+
+    <form enctype="multipart/form-data" th:action="@{'/soumet/'+${appel}}" th:object="${soumettForm}" method="POST">
+        <div class="form-group"><br><br>
+            <label><h5>L'Appel</h5></label>
+            <input  class="form-control"  th:type="number" th:field="*{appelId}"  th:disabled="true" th:value="${appel}" name="appel"    th:placeholder="${objet}" >
+
+        </div>
+        <br>
+        <div class="form-group">
+            <label><h5>Soumissionaire</h5></label>
+            <select class="form-control" th:field="*{soumissionaire}" >
+                <option class="form-control" th:type="number" th:each="sm : ${morales}" th:value="${sm.getId()}" th:text="${sm.getDenomination()}">
+                </option>
+            </select>
+        </div>
+        <br>
+        <div class="form-group">
+            <label ><h5>DossierCandidature</h5></label><br>
+            <input class="btn btn-primary" type="file"  th:field="*{file}" />
+        </div><br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </div>
+
+    </form>
+</div>
+
+
+</body>
+</html>
+
+
