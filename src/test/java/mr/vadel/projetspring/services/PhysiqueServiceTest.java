@@ -45,7 +45,7 @@ class PhysiqueServiceTest {
 
     @Test
     void deletePhysique() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/physique/delete/31")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/physique/delete/58")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -87,7 +87,7 @@ class PhysiqueServiceTest {
 
     @Test
     void findPhysiqueById() throws Exception {
-        String uri = "/physique/find/3";
+        String uri = "/physique/find/1";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 

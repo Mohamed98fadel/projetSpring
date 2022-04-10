@@ -48,7 +48,7 @@ class ReferenceServiceTest {
 
     @Test
     void deleteReference() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/reference/delete/32")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/reference/delete/60")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -92,7 +92,7 @@ class ReferenceServiceTest {
 
     @Test
     void findReferenceById() throws Exception {
-        String uri = "/reference/find/12";
+        String uri = "/reference/find/26";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 

@@ -51,7 +51,7 @@ class AppelOffreServiceTest {
 
     @Test
     void deleteAppelOffre() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/appel/delete/29")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/appel/delete/59")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -107,7 +107,7 @@ class AppelOffreServiceTest {
     @Test
     void findAppelOffreById() throws Exception {
 
-        String uri = "/appel/find/7";
+        String uri = "/appel/find/24";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -115,13 +115,4 @@ class AppelOffreServiceTest {
         assertEquals(200, status);
     }
 
-    @Test
-    void updateAppelOffre() {
-    }
-
-
-
-    @Test
-    void attribuerUnAppel() {
-    }
 }
