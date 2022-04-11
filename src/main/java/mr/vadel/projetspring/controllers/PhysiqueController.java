@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import mr.vadel.projetspring.services.PhysiqueService;
-
 import java.util.List;
 
 @RestController
@@ -15,10 +14,6 @@ import java.util.List;
 public class PhysiqueController {
     @Autowired
     private  PhysiqueService physiqueService;
-
-
-
-
 
 
     @GetMapping("/all")

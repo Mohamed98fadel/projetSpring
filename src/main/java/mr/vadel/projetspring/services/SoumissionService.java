@@ -1,9 +1,6 @@
 package mr.vadel.projetspring.services;
 
 
-import exceptions.ObjectNotFoundException;
-
-
 import mr.vadel.projetspring.models.AppelOffre;
 import mr.vadel.projetspring.models.Soumission;
 import mr.vadel.projetspring.repos.SoumissionRepo;
@@ -42,4 +39,5 @@ public class SoumissionService {
     public List<Soumission> findByAppel(AppelOffre appel) {
         return soumissionRepo.findByAppel(appel);
     }
+
 }

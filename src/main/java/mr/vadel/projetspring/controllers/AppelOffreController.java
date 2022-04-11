@@ -1,7 +1,7 @@
 package mr.vadel.projetspring.controllers;
 
 
-import exceptions.ObjectNotFoundException;
+
 import mr.vadel.projetspring.models.AppelOffre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,6 @@ public class AppelOffreController {
     private  AppelOffreService appelOffreService;
 
 
-
-
     @GetMapping("/all")
     public ResponseEntity<List<AppelOffre>> getAllAppels() {
         List<AppelOffre> appels = appelOffreService.findAllAppelOffres();
@@ -30,8 +28,8 @@ public class AppelOffreController {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<AppelOffre> getAppelOffreById(@PathVariable("id") Long id) {
-        AppelOffre appelOffre = appelOffreService.findAppelOffreById(id);
-        return new ResponseEntity<>(appelOffre, HttpStatus.OK);
+            AppelOffre appelOffre = appelOffreService.findAppelOffreById(id);
+            return new ResponseEntity<>(appelOffre, HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -39,7 +37,6 @@ public class AppelOffreController {
         AppelOffre appelOffre = appelOffreService.addAppelOffre(appel);
         return new ResponseEntity<>(appelOffre, HttpStatus.OK);
     }
-
 
 
     @DeleteMapping("/delete/{id}")
