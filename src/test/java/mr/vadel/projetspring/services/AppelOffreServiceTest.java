@@ -51,7 +51,7 @@ class AppelOffreServiceTest {
 
     @Test
     void deleteAppelOffre() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/appel/delete/59")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/appel/delete/65")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();

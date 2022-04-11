@@ -50,7 +50,7 @@ class MoraleServiceTest {
 
     @Test
     void deleteMorale() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/morale/delete/56")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/morale/delete/62")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();

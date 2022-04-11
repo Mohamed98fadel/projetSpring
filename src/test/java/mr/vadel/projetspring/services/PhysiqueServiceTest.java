@@ -45,7 +45,7 @@ class PhysiqueServiceTest {
 
     @Test
     void deletePhysique() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/physique/delete/58")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/physique/delete/64")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();

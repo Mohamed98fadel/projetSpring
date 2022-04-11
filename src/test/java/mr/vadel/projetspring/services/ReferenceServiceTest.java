@@ -48,7 +48,7 @@ class ReferenceServiceTest {
 
     @Test
     void deleteReference() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/reference/delete/60")
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/reference/delete/66")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();

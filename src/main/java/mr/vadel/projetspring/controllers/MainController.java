@@ -190,14 +190,18 @@ public class MainController {
     @RequestMapping(value = "/soumission/ref/{id}", method = RequestMethod.GET)
     public String AfficherReferences(Model model,@PathVariable("id") Long id) {
 
+        System.out.println("********"+id);
+
         List<Reference> all = referenceService.findAllReferences();
         Morale soum = moraleService.findMoraleById(id);
+        System.out.println("********"+soum.getDenomination());
 
         List<Reference> refs = new ArrayList<>();
 
         for(Reference ref: all){
             if(ref.getEntite().equals(soum)){
                 refs.add(ref);
+                System.out.println(ref.getObjet());
             }
         }
 
