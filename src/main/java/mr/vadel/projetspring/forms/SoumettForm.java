@@ -24,8 +24,13 @@ public class SoumettForm {
     public SoumettForm() {
     }
 
+    public SoumettForm(Long id, LocalDateTime date, Long appelId, Long soumissionaire) {
+        this.id = id;
+        Date = date;
+        this.appelId = appelId;
+        this.soumissionaire = soumissionaire;
 
-
+    }
 
     public Long getId() {
         return id;

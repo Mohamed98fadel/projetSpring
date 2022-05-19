@@ -20,8 +20,6 @@ public class MoraleController {
 
 
 
-
-
     @GetMapping("/all")
     public ResponseEntity<List<Morale>> getAllMorales() {
         List<Morale> morals = moraleService.findAllMorales();

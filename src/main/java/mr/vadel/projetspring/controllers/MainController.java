@@ -5,6 +5,7 @@ import mr.vadel.projetspring.forms.AttribForm;
 import mr.vadel.projetspring.forms.SoumettForm;
 import mr.vadel.projetspring.forms.SoumisForm;
 import mr.vadel.projetspring.models.*;
+import mr.vadel.projetspring.repos.AppelOffreRepo;
 import mr.vadel.projetspring.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.awt.*;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,6 +47,9 @@ public class MainController {
 
     @Autowired
     private ReferenceService referenceService;
+
+    @Autowired
+    private AppelOffreRepo appelOffreRepo;
 
 
 
@@ -86,7 +90,7 @@ public class MainController {
         return "soumettForm";
     }
 
-    @RequestMapping(value = "/soumet/{idAp}", method = RequestMethod.POST)
+    @RequestMapping(value = "/soumett/{idAp}", method = RequestMethod.POST)
     public String processCreateSoumission(Model model, SoumettForm soumettForm,@PathVariable("idAp") Long idAp) throws IOException {
 
         AppelOffre appel = appelOffreService.findAppelOffreById(idAp);
@@ -104,7 +108,7 @@ public class MainController {
             return "/";
         }
 
-        return "soumissions";
+        return "persoPhysiques";
     }
 
     @RequestMapping(value = "/soums", method = RequestMethod.GET)
@@ -146,9 +150,14 @@ public class MainController {
     @RequestMapping(value = "/attrib/{id}", method = RequestMethod.POST)
     public String AttribOffre(Model model,AttribForm form, @PathVariable("id") Long id) {
 
+
+
         AppelOffre appel = appelOffreService.findAppelOffreById(id);
+
         Morale gagnant = moraleService.findMoraleById(form.getSoumId());
         appel.setGagnant(gagnant);
+        appel.setDateAttrib(LocalDateTime.now());
+        appelOffreRepo.save(appel);
 
         //creation de la reference
         Reference ref = new Reference();
@@ -179,16 +188,20 @@ public class MainController {
 
 
     @RequestMapping(value = "/soumission/ref/{id}", method = RequestMethod.GET)
-    public String AffichierReferences(Model model,@PathVariable("id") Long id) {
+    public String AfficherReferences(Model model,@PathVariable("id") Long id) {
+
+        System.out.println("********"+id);
 
         List<Reference> all = referenceService.findAllReferences();
         Morale soum = moraleService.findMoraleById(id);
+        System.out.println("********"+soum.getDenomination());
 
         List<Reference> refs = new ArrayList<>();
 
         for(Reference ref: all){
             if(ref.getEntite().equals(soum)){
                 refs.add(ref);
+                System.out.println(ref.getObjet());
             }
         }
 

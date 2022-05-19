@@ -1,7 +1,7 @@
 package mr.vadel.projetspring.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import mr.vadel.projetspring.models.Physique;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -22,6 +21,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class PhysiqueServiceTest {
     protected MockMvc mvc;
+
+    ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
+    }
 
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -37,6 +42,17 @@ class PhysiqueServiceTest {
 
     @Autowired
     private  PhysiqueService physiqueService;
+
+    @Test
+    void deletePhysique() throws Exception {
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/physique/delete/64")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+    }
 
     @Test
     void findAllPhysiques() throws Exception {
@@ -57,17 +73,21 @@ class PhysiqueServiceTest {
         PrsnPhys.setMail("test.test@gmail.com");
         PrsnPhys.setTel("26165114");
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = objectMapper();
+        //Converting the Object to JSONString
+        String jsonString = mapper.writeValueAsString(PrsnPhys);
 
-//        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("/physique/add")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(mapper.writeValueAsString(PrsnPhys))
-//                .accept(MediaType.APPLICATION_JSON);
+
+        String uri = "/physique/add";
+
+        mvc.perform(post(uri).contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
+                .andExpect(status().isOk());
     }
 
     @Test
     void findPhysiqueById() throws Exception {
-        String uri = "/physique/find/3";
+        String uri = "/physique/find/1";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -75,7 +95,5 @@ class PhysiqueServiceTest {
         assertEquals(200, status);
     }
 
-    @Test
-    void deletePhysique() {
-    }
+
 }
